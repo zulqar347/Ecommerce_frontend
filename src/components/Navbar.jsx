@@ -4,6 +4,10 @@ import Login from "../pages/Login";
 import { ACCESS_TOKEN, Logout } from "../LoginLogout";
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+
   const cart = JSON.parse(localStorage.getItem('cart'))
   let count
   if (cart){ count = cart.length}
@@ -23,11 +27,24 @@ const Navbar = () => {
         { ACCESS_TOKEN ? <LogoutButton onLogout={Logout}/> : <LoginButton/>}
         {ACCESS_TOKEN && <CartButton itemCount={count}/>}
       </div>
-      <div className="hamburger">
+       {/* <div className="hamburger" onClick={toggleMenu}>
+          <span className={isOpen ? "line open" : "line"}></span>
+          <span className={isOpen ? "line open" : "line"}></span>
+          <span className={isOpen ? "line open" : "line"}></span>
+        </div> */}
+         {/* Mobile Menu */}
+      
+      <div onClick={toggleMenu}className="hamburger">
         <div></div>
         <div></div>
         <div></div>
       </div>
+      <ul className={`mobile-menu ${isOpen ? "show" : ""}`}>
+        <li><a href="/">Home</a></li>
+        <li><a href="/products">Products</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
     </nav>
   );
 };
